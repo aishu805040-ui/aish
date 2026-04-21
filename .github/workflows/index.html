@@ -1,0 +1,660 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Aishwarya Portfolio - Modern Design</title>
+
+<style>
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background: linear-gradient(135deg, #0a0012 0%, #1a001f 50%, #050008 100%);
+  color: #fdf1ff;
+  overflow-x: hidden;
+  position: relative;
+}
+
+/* Particle canvas */
+#particles {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: -2;
+  pointer-events: none;
+}
+
+/* Main content */
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
+/* Navbar */
+.navbar {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  background: rgba(10, 0, 18, 0.95);
+  backdrop-filter: blur(20px);
+  padding: 15px 25px;
+  border-radius: 50px;
+  border: 1px solid rgba(255, 77, 155, 0.3);
+  z-index: 1000;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5);
+}
+
+.nav-links {
+  display: flex;
+  gap: 20px;
+}
+
+.nav-links a {
+  color: #ffe4f4;
+  text-decoration: none;
+  font-weight: 600;
+  font-size: 0.9rem;
+  position: relative;
+  transition: all 0.3s ease;
+  letter-spacing: 0.5px;
+}
+
+.nav-links a::before {
+  content: '';
+  position: absolute;
+  bottom: -5px;
+  left: 0;
+  width: 0;
+  height: 2px;
+  background: linear-gradient(90deg, #ff4d9b, #b300ff);
+  transition: width 0.3s ease;
+}
+
+.nav-links a:hover::before {
+  width: 100%;
+}
+
+.nav-links a:hover {
+  color: #ffb3dd;
+  transform: translateY(-2px);
+}
+
+/* Hero Section */
+.hero {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  position: relative;
+}
+
+.hero-content {
+  max-width: 800px;
+  animation: slideInUp 1s ease-out;
+}
+
+.profile-img {
+  width: 200px;
+  height: 200px;
+  border-radius: 50%;
+  margin: 0 auto 30px;
+  border: 4px solid transparent;
+  background: linear-gradient(135deg, #ff4d9b, #b300ff, #ff9fd0) border-box;
+  box-shadow: 0 0 40px rgba(255, 77, 155, 0.6);
+  animation: float 6s ease-in-out infinite;
+  object-fit: cover;
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0px) rotate(0deg); }
+  50% { transform: translateY(-20px) rotate(5deg); }
+}
+
+.hero h1 {
+  font-size: 3.5rem;
+  background: linear-gradient(135deg, #ffffff, #ffb3dd, #ff4d9b);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  margin-bottom: 20px;
+  font-weight: 800;
+}
+
+.hero p {
+  font-size: 1.3rem;
+  opacity: 0.9;
+  margin-bottom: 40px;
+  line-height: 1.6;
+}
+
+/* Section Cards */
+.section {
+  padding: 100px 0;
+}
+
+.section-title {
+  text-align: center;
+  font-size: 2.5rem;
+  margin-bottom: 60px;
+  background: linear-gradient(135deg, #ffb3dd, #ff4d9b);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  position: relative;
+}
+
+.section-title::after {
+  content: '';
+  position: absolute;
+  bottom: -10px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 80px;
+  height: 4px;
+  background: linear-gradient(90deg, #ff4d9b, #b300ff);
+  border-radius: 2px;
+}
+
+/* Card Grid */
+.card-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: 30px;
+  margin-top: 40px;
+}
+
+.skill-card, .project-card {
+  background: rgba(15, 5, 25, 0.7);
+  backdrop-filter: blur(15px);
+  border: 1px solid rgba(255, 77, 155, 0.4);
+  border-radius: 20px;
+  padding: 30px;
+  text-align: center;
+  transition: all 0.4s ease;
+  position: relative;
+  overflow: hidden;
+  cursor: pointer;
+}
+
+.skill-card::before, .project-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+  transition: left 0.6s ease;
+}
+
+.skill-card:hover::before, .project-card:hover::before {
+  left: 100%;
+}
+
+.skill-card:hover, .project-card:hover {
+  transform: translateY(-15px) scale(1.02);
+  box-shadow: 0 25px 50px rgba(255, 77, 155, 0.3);
+  border-color: rgba(255, 77, 155, 0.8);
+}
+
+.skill-badge {
+  display: inline-block;
+  background: linear-gradient(135deg, #ff4d9b, #b300ff);
+  color: #fff;
+  padding: 12px 24px;
+  border-radius: 50px;
+  font-weight: 700;
+  font-size: 1.1rem;
+  margin-bottom: 15px;
+  box-shadow: 0 8px 25px rgba(255, 77, 155, 0.4);
+  transition: all 0.3s ease;
+}
+
+.skill-card:hover .skill-badge {
+  transform: scale(1.1);
+  box-shadow: 0 12px 35px rgba(255, 77, 155, 0.6);
+}
+
+.skill-desc {
+  opacity: 0.8;
+  line-height: 1.6;
+}
+
+/* Contact Section */
+.contact-card {
+  max-width: 600px;
+  margin: 0 auto;
+  background: rgba(15, 5, 25, 0.7);
+  backdrop-filter: blur(15px);
+  border: 1px solid rgba(255, 77, 155, 0.4);
+  border-radius: 20px;
+  padding: 50px;
+  text-align: center;
+}
+
+.contact-card h3 {
+  font-size: 2rem;
+  margin-bottom: 30px;
+  color: #ffb3dd;
+}
+
+.form-group {
+  margin-bottom: 20px;
+  text-align: left;
+}
+
+.form-group input,
+.form-group textarea {
+  width: 100%;
+  padding: 15px 20px;
+  border: 1px solid rgba(255, 77, 155, 0.4);
+  border-radius: 12px;
+  background: rgba(10, 0, 20, 0.6);
+  color: #fff;
+  font-size: 1rem;
+  transition: all 0.3s ease;
+  backdrop-filter: blur(10px);
+}
+
+.form-group input:focus,
+.form-group textarea:focus {
+  outline: none;
+  border-color: #ff4d9b;
+  box-shadow: 0 0 20px rgba(255, 77, 155, 0.3);
+}
+
+.cta-button {
+  background: linear-gradient(135deg, #ff4d9b, #b300ff);
+  color: #fff;
+  border: none;
+  padding: 15px 40px;
+  border-radius: 50px;
+  font-weight: 700;
+  font-size: 1.1rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 10px 30px rgba(255, 77, 155, 0.4);
+}
+
+.cta-button:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 15px 40px rgba(255, 77, 155, 0.6);
+}
+
+/* Modal */
+.modal {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.9);
+  z-index: 2000;
+  align-items: center;
+  justify-content: center;
+}
+
+.modal-content {
+  background: linear-gradient(135deg, rgba(255, 77, 155, 0.1), rgba(179, 0, 255, 0.1));
+  backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 77, 155, 0.5);
+  border-radius: 20px;
+  padding: 40px;
+  max-width: 500px;
+  text-align: center;
+  transform: scale(0.8);
+  animation: modalPop 0.4s ease forwards;
+}
+
+@keyframes modalPop {
+  to {
+    transform: scale(1);
+  }
+}
+
+.close {
+  position: absolute;
+  top: 20px;
+  right: 30px;
+  font-size: 2rem;
+  color: #ffb3dd;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.close:hover {
+  color: #ff4d9b;
+  transform: rotate(90deg);
+}
+
+/* Animations */
+@keyframes slideInUp {
+  from {
+    opacity: 0;
+    transform: translateY(50px);
+  }
+}
+
+.card-animate {
+  opacity: 0;
+  transform: translateY(30px);
+  transition: all 0.6s ease;
+}
+
+.card-animate.show {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.stagger {
+  animation-delay: calc(var(--order) * 0.1s);
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .hero h1 {
+    font-size: 2.5rem;
+  }
+  
+  .card-grid {
+    grid-template-columns: 1fr;
+    gap: 20px;
+  }
+  
+  .navbar {
+    position: fixed;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    right: auto;
+    border-radius: 30px;
+  }
+  
+  .nav-links {
+    gap: 10px;
+  }
+}
+
+/* Scroll indicator */
+.scroll-indicator {
+  position: fixed;
+  bottom: 80px;
+  right: 30px;
+  width: 50px;
+  height: 50px;
+  background: linear-gradient(135deg, #ff4d9b, #b300ff);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  opacity: 0.8;
+  transition: all 0.3s ease;
+  z-index: 100;
+}
+
+.scroll-indicator:hover {
+  transform: scale(1.1);
+  opacity: 1;
+}
+</style>
+</head>
+
+<body>
+<canvas id="particles"></canvas>
+
+<!-- Navbar -->
+<nav class="navbar">
+  <div class="nav-links">
+    <a href="#home">Home</a>
+    <a href="#education">Education</a>
+    <a href="#skills">Skills</a>
+    <a href="#certs">Certs</a>
+    <a href="#projects">Projects</a>
+    <a href="#contact">Contact</a>
+  </div>
+</nav>
+
+<!-- Scroll Indicator -->
+<div class="scroll-indicator" onclick="window.scrollTo({top: window.innerHeight, behavior: 'smooth'})">
+  ↓
+</div>
+
+<!-- Hero -->
+<section id="home" class="hero">
+  <div class="hero-content">
+    <!-- Replace with your image -->
+    <img src="1.jpeg" alt="Aishwarya" class="profile-img">
+    <h1>Aishwarya</h1>
+    <p>Hello! Welcome to my portfolio. I'm passionate about creating beautiful, interactive web experiences.</p>
+  </div>
+</section>
+
+<!-- Education -->
+<section id="education" class="section">
+  <h2 class="section-title">Education</h2>
+  <div class="card-grid">
+    <div class="skill-card card-animate stagger" style="--order: 1;">
+      <div class="skill-badge">MCA (persuing) </div>
+      <div class="skill-desc">Maharaja Institute of Technology<br>Thandavapura</div>
+    </div>
+    <div class="skill-card card-animate stagger" style="--order: 2;">
+      <div class="skill-badge">BCA  <br> 8.1 CGPA </div>
+      <div class="skill-desc">NIE first grade college ,Mysore</div>
+    </div>
+      <div class="skill-card card-animate stagger" style="--order: 1;">
+      <div class="skill-badge"> PUC <br> 85% </div>
+      <div class="skill-desc"> Teresien College, Mysore </div>
+    </div>
+        <div class="skill-card card-animate stagger" style="--order: 1;">
+      <div class="skill-badge"> SSLC <br> 80% </div>
+      <div class="skill-desc"> SNS Higher primary school </div>
+    </div>
+
+
+  </div>
+</section>
+
+
+
+<!-- Skills -->
+<section id="skills" class="section">
+  <h2 class="section-title">Skills</h2>
+  <div class="card-grid">
+    <div class="skill-card card-animate stagger" style="--order: 1;" data-title="HTML" data-desc="I build structured, semantic pages using HTML5, keeping accessibility and clean layout in mind.">
+      <div class="skill-badge">HTML5</div>
+      <div class="skill-desc">Semantic markup & accessibility</div>
+    </div>
+    <div class="skill-card card-animate stagger" style="--order: 2;" data-title="CSS" data-desc="I design modern, responsive UIs with CSS, including flexbox, grid and creative animations.">
+      <div class="skill-badge">CSS3</div>
+      <div class="skill-desc">Animations & responsive design</div>
+    </div>
+    <div class="skill-card card-animate stagger" style="--order: 3;" data-title="JavaScript" data-desc="I use JavaScript to add interactivity, handle events and create dynamic page behavior.">
+      <div class="skill-badge">JavaScript</div>
+      <div class="skill-desc">Interactive web experiences</div>
+    </div>
+    <div class="skill-card card-animate stagger" style="--order: 4;" data-title="C Programming" data-desc="I know C for problem solving, pointers, memory management and basic data structures.">
+      <div class="skill-badge">C Language</div>
+      <div class="skill-desc">Problem solving & algorithms</div>
+    </div>
+  </div>
+</section>
+
+<!-- Certifications -->
+<section id="certs" class="section">
+  <h2 class="section-title">Certifications</h2>
+  <div class="card-grid">
+    <div class="skill-card card-animate stagger" style="--order: 1;" data-title="AI" data-desc="AI certification introduced me to basic machine learning concepts and real-world applications." >  <img src=" "C:\Users\Madhuri K\Downloads\WhatsApp Image 2026-04-21 at 7.13.31 PM.jpeg" >  
+      <div class="skill-badge">AI</div>
+      <div class="skill-desc">Machine Learning Basics</div>
+    </div>
+    <div class="skill-card card-animate stagger" style="--order: 2;" data-title="InternPE" data-desc="InternPE gave me hands-on internship exposure and helped me understand how projects work in teams.">
+      <div class="skill-badge">InternPE</div>
+      <div class="skill-desc">Hands-on Internship</div>
+    </div>
+    <div class="skill-card card-animate stagger" style="--order: 3;" data-title="Cyber Security" data-desc="Cyber Security certification covered threats, safe practices, and the importance of securing systems.">
+      <div class="skill-badge">Cyber Security</div>
+      <div class="skill-desc">System Protection</div>
+    </div>
+  </div>
+</section>
+
+<!-- Projects -->
+<section id="projects" class="section">
+  <h2 class="section-title">Projects</h2>
+  <div class="card-grid">
+    <div class="project-card card-animate stagger" style="--order: 1;" data-title="Student Grievance System" data-desc="A web application that allows students to submit grievances and track their status online.">
+      <div class="skill-badge">Grievance System</div>
+      <div class="skill-desc">Student complaint management portal</div>
+    </div>
+    <div class="project-card card-animate stagger" style="--order: 2;" data-title="Car Showroom Website" data-desc="A stylish website for a car showroom to display vehicles, details and contact information.">
+      <div class="skill-badge">Car Showroom</div>
+      <div class="skill-desc">Interactive vehicle showcase</div>
+    </div>
+  </div>
+</section>
+
+<!-- Contact -->
+<section id="contact" class="section">
+  <h2 class="section-title">Get In Touch</h2>
+  <div class="contact-card card-animate">
+    <h3>Let's work together!</h3>
+    <form id="contactForm">
+      <div class="form-group">
+        <input type="text" placeholder="Your Name" required>
+      </div>
+      <div class="form-group">
+        <input type="email" placeholder="Your Email" required>
+      </div>
+      <div class="form-group">
+        <input type="tel" placeholder="Your Phone">
+      </div>
+      <div class="form-group">
+        <textarea rows="5" placeholder="Your Message" required></textarea>
+      </div>
+      <button type="submit" class="cta-button">Send Message</button>
+    </form>
+  </div>
+</section>
+
+<!-- Modal -->
+<div id="modal" class="modal">
+  <div class="modal-content">
+    <span class="close">&times;</span>
+    <h3 id="modalTitle"></h3>
+    <p id="modalText"></p>
+  </div>
+</div>
+
+<script>
+// Particle system
+const canvas = document.getElementById('particles');
+const ctx = canvas.getContext('2d');
+canvas.width = window.innerWidth;
+canvas.height = window.innerHeight;
+
+const particles = [];
+const particleCount = 80;
+
+class Particle {
+  constructor() {
+    this.x = Math.random() * canvas.width;
+    this.y = Math.random() * canvas.height;
+    this.size = Math.random() * 3 + 1;
+    this.speedX = Math.random() * 0.5 - 0.25;
+    this.speedY = Math.random() * 0.5 - 0.25;
+    this.hue = Math.random() * 60 + 300; // Pink/purple range
+  }
+  
+  update() {
+    this.x += this.speedX;
+    this.y += this.speedY;
+    
+    if (this.x < 0 || this.x > canvas.width) this.speedX *= -1;
+    if (this.y < 0 || this.y > canvas.height) this.speedY *= -1;
+  }
+  
+  draw() {
+    ctx.fillStyle = `hsla(${this.hue}, 70%, 60%, 0.3)`;
+    ctx.beginPath();
+    ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+    ctx.fill();
+  }
+}
+
+for (let i = 0; i < particleCount; i++) {
+  particles.push(new Particle());
+}
+
+function animateParticles() {
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+  particles.forEach(p => {
+    p.update();
+    p.draw();
+  });
+  requestAnimationFrame(animateParticles);
+}
+animateParticles();
+
+window.addEventListener('resize', () => {
+  canvas.width = window.innerWidth;
+  canvas.height = window.innerHeight;
+});
+
+// Scroll animations
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      entry.target.classList.add('show');
+    }
+  });
+});
+
+document.querySelectorAll('.card-animate').forEach(el => {
+  observer.observe(el);
+});
+
+// Modal functionality
+document.querySelectorAll('.skill-card, .project-card').forEach(card => {
+  card.addEventListener('click', () => {
+    const title = card.dataset.title;
+    const desc = card.dataset.desc;
+    document.getElementById('modalTitle').textContent = title;
+    document.getElementById('modalText').textContent = desc;
+    document.getElementById('modal').style.display = 'flex';
+  });
+});
+
+document.querySelector('.close').addEventListener('click', () => {
+  document.getElementById('modal').style.display = 'none';
+});
+
+window.addEventListener('click', (e) => {
+  if (e.target.id === 'modal') {
+    document.getElementById('modal').style.display = 'none';
+  }
+});
+
+// Contact form
+document.getElementById('contactForm').addEventListener('submit', (e) => {
+  e.preventDefault();
+  document.getElementById('modalTitle').textContent = 'Thank You!';
+  document.getElementById('modalText').textContent = 'Your message has been sent. I\'ll get back to you soon!';
+  document.getElementById('modal').style.display = 'flex';
+  e.target.reset();
+});
+</script>
+</body>
+</html>
